@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: facture-service
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        service-name: ${spring.application.name}
+        instance-id: ${spring.application.name}:${random.uuid}
+  management:
+    endpoints:
+      web:
+        exposure:
+          include:
+            - health
+            - beans
+            - mappings
+            - metrics
+  rabbitmq:
+    #adresse ip de la machine o� tourne rabbit
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  datasource:
+    url: jdbc:h2:mem:rabbitDB
+    username: user
+    password: pass
+server:
+  port: 8081

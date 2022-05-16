@@ -1,0 +1,6 @@
+application:
+  jwt:
+    secret: "code_secret"
+    expires: 86400000
+    prefix: "Bearer "
+    header: "Authorization"

@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: Gateway2
+  cloud:
+    consul:
+      discovery:
+        service-name: ${spring.application.name}
+        instance-id: ${spring.application.name}:${random.uuid}
+    gateway:
+      routes:
+        - id: to-reservation
+          uri: lb://reservation-service
+          predicates:
+            - Path=/reservation
+            - Method=GET
+          filters:
+#            - RewritePath=/reservation, /reservation
+        - id: to-reservation-add
+          uri: lb://reservation-service
+          predicates:
+              - Path=/reservation/add
+              - Method=POST
+          filters:
+#              - RewritePath=/reservation/add, /reservation/add
+        - id: to-reservation-getOne
+          uri: lb://reservation-service
+          predicates:
+              - Path=/reservation/one
+              - Method=GET
+              - Query=id, ........-....-....-....-............
+          filters:
+#              - RewritePath=/reservation/(?<path>.*)
+        - id: to-facture
+          uri: lb://facture-service
+          predicates:
+             - Path=/facture
+             - Method=GET
+      discovery:
+        locator:
+          enabled: true
+
