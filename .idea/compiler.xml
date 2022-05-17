@@ -9,12 +9,14 @@
         <outputRelativeToContentRoot value="true" />
         <module name="reservation_service" />
         <module name="api-gateway-v2" />
+        <module name="user" />
         <module name="Gateway" />
         <module name="facture_service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="reservation_dto" target="17" />
+      <module name="user_service" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -24,6 +26,8 @@
       <module name="facture_service" options="-parameters" />
       <module name="reservation_dto" options="-parameters" />
       <module name="reservation_service" options="-parameters" />
+      <module name="user" options="-parameters" />
+      <module name="user_service" options="-parameters" />
     </option>
   </component>
 </project>

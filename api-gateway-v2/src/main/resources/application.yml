@@ -35,6 +35,13 @@ spring:
           predicates:
              - Path=/facture
              - Method=GET
+        - id: login
+          uri: lb://user-service
+          predicates:
+            - Path=/login
+            - Method=POST
+          filters:
+            - name: Logger
       discovery:
         locator:
           enabled: true
