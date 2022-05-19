@@ -1,7 +1,9 @@
 package be.technifutur.gg.reservation;
 
+import be.technifutur.gg.reservation.client.FactureClient;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -18,11 +20,12 @@ public class ReservationService {
     private final List<Reservation> list = new ArrayList<>();
     private final MessageSender messageSender;
     private final RestTemplate template;
+    private final FactureClient factureClient;
 
-
-    public ReservationService(MessageSender messageSender, RestTemplate template) {
+    public ReservationService(MessageSender messageSender, RestTemplate template, FactureClient client) {
         this.messageSender = messageSender;
         this.template = template;
+        this.factureClient = client;
     }
 
 
@@ -43,9 +46,11 @@ public class ReservationService {
         return list.stream().filter(reservation -> reservation.getStatus() == FACTURE).collect(Collectors.toList());
     }
 
-    public ReservationFactureDTO getOne(UUID id){
+    public ReservationFactureDTO getOne(UUID id, String token){
         Reservation r =list.stream().filter(reservation -> reservation.getRef().equals(id)).findAny().orElse(null);
-        Double prix = template.getForObject("http://localhost:8081/facture/one?id="+id,  Double.class);
+//        Double prix = template.getForObject("http://facture-service/facture/one?id="+id,  Double.class);
+          Double prix = (factureClient.getPrixByID(id, token )).getBody();
+
         ReservationFactureDTO rDTO = new ReservationFactureDTO(
                 id,
                 r.getNbNuit(),

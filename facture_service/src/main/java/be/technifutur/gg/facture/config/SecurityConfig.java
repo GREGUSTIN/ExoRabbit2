@@ -1,4 +1,4 @@
-package be.technifutur.gg.reservation.config;
+package be.technifutur.gg.facture.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -6,7 +6,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -29,9 +28,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
 
+
         http.authorizeRequests()
                 .anyRequest().permitAll();
 
-        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+//        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
     }
+
 }

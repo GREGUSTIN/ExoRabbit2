@@ -1,6 +1,7 @@
 package be.technifutur.gg.facture;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,10 +22,12 @@ public class FactureController {
     }
 
     @GetMapping
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<Facture>> getList (){
         return ResponseEntity.ok(service.getFactures());
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/one")
     public ResponseEntity<Double> getPrixByID(@RequestParam UUID id){
         return ResponseEntity.ok(service.getPrixByID(id));

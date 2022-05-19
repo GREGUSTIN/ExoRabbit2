@@ -21,7 +21,7 @@ public class ReservationController {
     }
 
     @PostMapping("/reservation/add")
-//    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
     public void addReservation(@RequestBody Reservation reservation) throws JsonProcessingException {
         service.create(reservation);
@@ -32,9 +32,11 @@ public class ReservationController {
         return ResponseEntity.ok(service.getReservationFactures());
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/reservation/one")
-    public ResponseEntity<ReservationFactureDTO> getOne(@RequestParam UUID id){
-        return ResponseEntity.ok(service.getOne(id));
+    public ResponseEntity<ReservationFactureDTO> getOne(@RequestParam UUID id, @RequestHeader("Authorization") String token){
+
+        return ResponseEntity.ok(service.getOne(id, token));
     }
 
 
