@@ -18,14 +18,12 @@ public class FactureService {
         this.messageSender = messageSender;
     }
 
-    public  void createFacture(int nbNuit, UUID reservation) throws JsonProcessingException {
+    public  Facture createFacture(int nbNuit, UUID reservation)  {
         Facture f= new Facture();
         f.setPrix(50*nbNuit);
         f.setReservation_ref(reservation);
         factures.add(f);
-        ObjectMapper mapper = new ObjectMapper();
-        String fJson = mapper.writeValueAsString(f.getReservation_ref());
-        messageSender.sendFactureToReservation(fJson);
+        return f;
     }
 
     public Double getPrixByID(UUID id){

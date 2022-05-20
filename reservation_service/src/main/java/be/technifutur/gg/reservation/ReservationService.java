@@ -29,11 +29,10 @@ public class ReservationService {
     }
 
 
+
     public  void create(Reservation reservation) throws JsonProcessingException {
         list.add(reservation);
-        ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(reservation);
-        messageSender.sendReservationToFacture(json);
+        messageSender.send(reservation);
     }
 
     public void setToFacture(UUID ref){

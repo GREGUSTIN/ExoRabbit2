@@ -13,8 +13,8 @@ public class MessageSender {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public void sendFactureToReservation (String json){
-        rabbitTemplate.convertAndSend("demo.direct","facture", json);
-    }
+//    public void sendFactureToReservation (String json){
+//        rabbitTemplate.convertAndSend("demo.direct","facture", json);
+//    }
 
 }
